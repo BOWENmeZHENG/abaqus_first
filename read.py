@@ -1,3 +1,6 @@
+import pandas as pd
+
+
 def read_stresses(filename):
     nodes, stresses = [], []
     # i = 0
@@ -47,3 +50,8 @@ def read_coords_elem_nodes(filename):
                 break
             elem_nodes.append([int(element) for element in values[1:5]])
     return coords, elem_nodes
+
+
+def read_exterior(filename):
+    exterior_nodes = pd.read_csv(filename)['nodeid'].values.tolist()
+    return exterior_nodes

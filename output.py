@@ -1,8 +1,12 @@
-def write_csv(nodes, stresses, coords, elem_nodes):
+def write_csv(nodes, stresses, coords, elem_nodes, exterior_nodes):
     with open("nodes.csv", "w") as f:
-        f.write("nodeid,x,y,z,stress\n")
+        f.write("nodeid,nodetype,x,y,z,stress\n")
         for i in range(len(nodes)):
-            f.write(f"{nodes[i]},{coords[i][0]:.5},{coords[i][1]:.5},{coords[i][2]:.5},{stresses[i]:.5}\n")
+            if nodes[i] in exterior_nodes:
+                nodetype = 1
+            else:
+                nodetype = 0
+            f.write(f"{nodes[i]},{nodetype},{coords[i][0]:.5},{coords[i][1]:.5},{coords[i][2]:.5},{stresses[i]:.5}\n")
     with open("elements.csv", "w") as f:
         f.write("elemid,node1,node2,node3,node4\n")
         for i in range(len(elem_nodes)):
